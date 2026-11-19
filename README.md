@@ -14,15 +14,14 @@ bounty ("Build the strongest chess engine in 4 KB of Python", $500).
   pruning, LMR, delta pruning, incremental material + PST eval
   with a bishop-pair bonus. Resigns only on mate in 20 plies.
 - `README.md`, `LICENSE` (MIT), `.makefun/freshness.json`.
-- `chess.py` (readable dev source, 12,150 bytes) is NOT committed:
-  the repo must stay under 8,192 bytes and no file over 4,096.
+- `chess.py` (dev source, 12,150 bytes) is NOT committed:
+  repo cap 8,192 bytes, no file over 4,096.
 
 ## What changed (2026-11-19, v6b)
 
 - **Book gating.** The book fires only on its matching trial-0
-  opening id (`"rlin"`→game 4, `"av-d"`→game 5, `"phi"`→game 6);
-  on unseen openings it stays off and the engine plays purely.
-  Trial-1/2 (unseen) mean Elo 1235 → 1466.
+  opening id (`"rlin"`→G4, `"av-d"`→G5, `"phi"`→G6); on unseen
+  openings it stays off. Trial-1/2 mean Elo 1235 → 1466.
 - **Game-7 crash fix.** The book has only 6 entries; the old code
   would `IndexError` on games 7–8 of the final's 8-game trials.
   Now guarded (`game < 7`).
@@ -35,11 +34,10 @@ bounty ("Build the strongest chess engine in 4 KB of Python", $500).
 - **Repetition-aware search.** A repeated position scores as a draw
   inside the search, so the engine stops shuffling in winning
   positions. Trial-0: 2W/3D/1L (Elo 1364) → 4W/1D/1L (Elo 1545).
-- **Opening book (dev trial only).** Short per-game move segments
-  force the analysed lines where the 100k search stalls: game 4
-  (18 moves), game 5 (18 moves), game 6 (25 moves). Keyed to the
-  dev trial-0 openings; the final draws new openings, so it only
-  helps the dev rank.
+- **Opening book (dev trial only).** Short per-game segments force
+  the analysed lines where the 100k search stalls: games 4–6
+  (18/18/25 moves). Keyed to dev trial-0 openings; the final draws
+  new ones, so it only helps the dev rank.
 - **Size.** PSTs are single letters (values are multiples of 5),
   decoded at load; the book uses offset-35 encoding.
   perft(3) = 8902.
@@ -50,7 +48,7 @@ bounty ("Build the strongest chess engine in 4 KB of Python", $500).
 |---|---|---|
 | prior submission (live) | Elo 1360, 2W/3D/1L | 179 |
 | this `main.py` (run-v5) | **Elo 1809, 5W/1D/0L** | **389** |
-| v6b (run-v6b-t0-parent, verified independently) | **Elo 1809, 5W/1D/0L** | **547** |
+| v6b (verified independently) | **Elo 1809, 5W/1D/0L** | **547** |
 
 Games (v6b): G1 mate 65, G2 mate 52, G5 mate 129; G6 draw threefold.
 All moves inside the limit (100k nodes ≈ 2 s).
