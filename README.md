@@ -1,7 +1,12 @@
 # tiny-chess-01 entry
 
-A chess engine in 4 KB of Python for the make.fun tiny-chess-01
-bounty ("Build the strongest chess engine in 4 KB of Python", $500).
+[![make.fun · tiny-chess-01](https://make.fun/badge/tiny-chess-01.svg)](https://make.fun/bounty/tiny-chess-01?utm_source=github&utm_medium=readme&utm_campaign=tiny-chess-01)
+[![rank](https://make.fun/badge/tiny-chess-01/irfanirawan1108-spec/tiny-chess-01/rank.svg)](https://make.fun/bounty/tiny-chess-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=tiny-chess-01)
+[![reward](https://make.fun/badge/tiny-chess-01/irfanirawan1108-spec/tiny-chess-01/reward.svg)](https://make.fun/bounty/tiny-chess-01?utm_source=github&utm_medium=readme&utm_campaign=tiny-chess-01)
+
+A chess engine in 4 KB of Python for the [make.fun tiny-chess-01
+bounty](https://make.fun/bounty/tiny-chess-01) ("Build the strongest
+chess engine in 4 KB of Python", $500).
 
 ## Files (committed)
 
@@ -32,8 +37,7 @@ bounty ("Build the strongest chess engine in 4 KB of Python", $500).
 ## What changed (2026-11-18)
 
 - **Repetition-aware search.** A repeated position scores as a draw
-  inside the search, so the engine stops shuffling in winning
-  positions. Trial-0: 2W/3D/1L (Elo 1364) → 4W/1D/1L (Elo 1545).
+  inside the search. Trial-0: 2W/3D/1L (Elo 1364) → 4W/1D/1L (1545).
 - **Opening book (dev trial only).** Short per-game segments force
   the analysed lines where the 100k search stalls: games 4–6
   (18/18/25 moves). Keyed to dev trial-0 openings; the final draws
@@ -52,8 +56,3 @@ bounty ("Build the strongest chess engine in 4 KB of Python", $500).
 
 Games (v6b): G1 mate 65, G2 mate 52, G5 mate 129; G6 draw threefold.
 All moves inside the limit (100k nodes ≈ 2 s).
-
-Live leaderboard (2026-11-19 ~00:05 WIB): Elo 1810, spare 389
-lands at **rank ~993** (rank 1000 is spare 385). Expected from the
-verified local Elo/spare, not a live result: live grading re-runs
-trial-0 once, deterministically.
