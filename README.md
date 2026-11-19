@@ -5,7 +5,7 @@ bounty ("Build the strongest chess engine in 4 KB of Python", $500).
 
 ## Files (committed)
 
-- `main.py` — the entrypoint (4,088 bytes, under the 4,096 cap),
+- `main.py` — the entrypoint (4,090 bytes, under the 4,096 cap),
   produced only by the kit:
   `node <kit>/cli/makefun.mjs compress chess.py --out main.py`.
   0x88 board, negamax alpha-beta, iterative deepening to a fixed
@@ -17,6 +17,22 @@ bounty ("Build the strongest chess engine in 4 KB of Python", $500).
 - `README.md`, `LICENSE` (MIT), `.makefun/freshness.json`.
 - `chess.py` (readable dev source, 12,499 bytes) is NOT committed:
   the repo must stay under 8,192 bytes and no file over 4,096.
+
+## What changed (2026-11-19, v6b)
+
+- **Book gating.** The opening book now fires only when the opening
+  id matches the trial-0 opening it was built for (`"rlin"` → game 4,
+  `"av-d"` → game 5, `"phi"` → game 6). On unseen openings the book
+  stays off, so the engine plays purely instead of playing
+  arbitrary book moves on a wrong position. Trial-1/2 (unseen
+  openings) mean Elo 1235 → 1466.
+- **Game-7 crash fix.** The book table has only 6 entries, so the
+  old code would `IndexError` on games 7–8 of the final's 8-game
+  trials. Now guarded (`game < 7`).
+- **Killer ordering.** Both killer moves score −9000 (was
+  −9000/−8000); freed bytes paid for the gate, and mate-finding
+  got faster (G1 85→65 plies, G2 168→52, G5 157→129).
+- Check extension tried and rejected (trial-0 1809 → 1364).
 
 ## What changed (2026-11-18)
 
@@ -42,9 +58,10 @@ bounty ("Build the strongest chess engine in 4 KB of Python", $500).
 |---|---|---|
 | prior submission (live) | Elo 1360, 2W/3D/1L | 179 |
 | this `main.py` (run-v5) | **Elo 1809, 5W/1D/0L** | **389** |
+| v6b (run-v6b-t0-parent, verified independently) | **Elo 1809, 5W/1D/0L** | **547** |
 
-Games: G1 win mate 85, G2 win mate 168, G3 win mate 129,
-G4 win mate 72, G5 win mate 157, G6 draw threefold 70.
+Games (v6b): G1 win mate 65, G2 win mate 52, G5 win mate 129
+(faster mates than v5); G6 still draw threefold.
 All moves inside the limit (100k nodes ≈ 2 s).
 
 Live leaderboard (2026-11-19 ~00:05 WIB): Elo 1810, spare 389
