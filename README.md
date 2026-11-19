@@ -24,11 +24,11 @@ bounty](https://make.fun/bounty/tiny-chess-01) ($500).
 
 - **Book gating.** The book fires only on its matching trial-0
   opening id (`"rlin"`→G4, `"av-d"`→G5, `"phi"`→G6); off on unseen
-  openings. Trial-1/2 mean Elo 1235 → 1466.
+  openings. Trial-1/2 mean 1235 → 1466.
 - **Game-7 crash fix.** The book has only 6 entries; old code would
   `IndexError` on games 7–8 of the final's 8-game trials.
   Guarded (`game < 7`).
-- **Killer ordering.** Both killers score −9000; mates faster
+- **Killer ordering.** Both killers −9000; mates faster
   (G1 85→65, G2 168→52, G5 157→129 plies).
 - Check extension tried and rejected (trial-0 1809 → 1364).
 
